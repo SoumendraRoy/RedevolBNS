@@ -1,3 +1,9 @@
+# Data files
+*.h5
+*.dat
+*.hdf5
+*.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
