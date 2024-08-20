@@ -158,3 +158,8 @@ def cosmo_model(Mczs, logqs, Thetas, ds, Mczsdetdraw, logqsdetdraw, Thetasdetdra
     var5sel = jss.logsumexp(varsel+var2sel+var3tsel+var4sel)
     
     _ = numpyro.factor('pos', jnp.sum(var5)-Nobs*var5sel)
+    
+    # neff
+    var5sel_arg = varsel+var2sel+var3tsel+var4sel
+    log_neff = 2.*(jss.logsumexp(var5sel_arg) - jnp.log(Ndraw)-jnp.log(jnp.power(jnp.exp(jss.logsumexp(2*var5sel_arg)-2.*jnp.log(Ndraw))-jnp.exp(2.*var5sel_mean-jnp.log(Ndraw)),0.5)/jnp.log(Ndraw)))
+    numpyro.deterministic('neff', jnp.exp(log_neff))
